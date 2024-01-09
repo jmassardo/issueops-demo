@@ -15,7 +15,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const issueComment = `Thank you for opening this bug report, @${{ github.event.issue.user.login }}! We appreciate your contribution.`;
+          const issueComment = `Thank you for opening this bug report, ${{ github.event.issue.user.login }}! We appreciate your contribution.`;
           github.issues.createComment({
             issue_number: ${{ github.event.issue.number }},
             owner: ${{ github.repository_owner }},
