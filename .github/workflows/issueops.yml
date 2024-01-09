@@ -1,0 +1,24 @@
+name: issueops
+
+on:
+  issues:
+    types:
+    - opened
+
+jobs:
+  commentOnBugIssue:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'bug')
+    steps:
+    - name: Comment on Issue
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const issueComment = `Thank you for opening this bug report, @${{ github.event.issue.user.login }}! We appreciate your contribution.`;
+          github.issues.createComment({
+            issue_number: ${{ github.event.issue.number }},
+            owner: ${{ github.repository_owner }},
+            repo: ${{ github.repository }},
+            body: issueComment
+          });
